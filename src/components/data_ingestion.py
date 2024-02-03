@@ -103,7 +103,3 @@ class DataIngestor:
             raise CustomException(ce)
     
 
-# Initialize and run the data ingestion
-
-data_ingestor = DataIngestor()
-data_ingestor.data_ingestion()

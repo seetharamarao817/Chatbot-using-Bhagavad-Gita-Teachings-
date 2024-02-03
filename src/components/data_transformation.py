@@ -5,15 +5,16 @@ import numpy as np
 from tensorflow.keras import preprocessing, utils
 
 class DataTransformer:
-    def __init__(self, tokenizer, answers, vocab_size):
+    def __init__(self, tokenizer,questions,answers, vocab_size):
         self.tokenizer = tokenizer
+        self.questions = questions
         self.answers = answers
         self.vocab_size = vocab_size
 
     def transform_data(self):
         try:
             # Encoder Input Data
-            tokenized_questions = self.tokenizer.texts_to_sequences(self.answers)
+            tokenized_questions = self.tokenizer.texts_to_sequences(self.questions)
             maxlen_questions = max(len(x) for x in tokenized_questions)
             encoder_input_data = self.preprocess_data(tokenized_questions, maxlen_questions)
             logging.info(encoder_input_data.shape, maxlen_questions)
@@ -46,7 +47,3 @@ class DataTransformer:
         
 
 
-
-# Example usage:
-# transformer = DataTransformer(tokenizer, answers, vocab_size)
-# encoder_input, decoder_input, decoder_output, max_len_q, max_len_a = transformer.transform_data()

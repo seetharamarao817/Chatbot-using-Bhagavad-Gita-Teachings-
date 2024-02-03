@@ -62,13 +62,3 @@ class DataPreprocessor:
             logging.error(f"CustomException: {ce}")
     
             raise CustomException(ce, sys)
-
-class CustomException(Exception):
-    def __init__(self, error, traceback):
-        self.error = error
-        self.traceback = traceback
-        super().__init__(f"Custom Exception: {error}")
-
-
-preprocessor = DataPreprocessor(questions, answers)
-preprocessed_questions, preprocessed_answers = preprocessor.preprocess()
