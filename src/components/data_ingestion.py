@@ -5,7 +5,6 @@ from src.logging.logger import logging
 from src.exceptions.exception import CustomException
 
 
-
 class DataIngestor:
     def __init__(self):
         self.questions = []
@@ -96,10 +95,7 @@ class DataIngestor:
                 self.add_data_to_dataframe(data_list)
 
             logging.info("Data ingestion completed successfully.")
-            return processed_questions,processed_answers
+            return self.questions,self.answers
         
         except Exception as ce:
-            
             raise CustomException(ce)
-    
-

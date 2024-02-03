@@ -5,30 +5,34 @@ import numpy as np
 from tensorflow.keras import preprocessing, utils
 
 class DataTransformer:
-    def __init__(self, tokenizer,questions,answers, vocab_size):
+    def __init__(self, tokenizer,questions,answers,vocab_size):
         self.tokenizer = tokenizer
         self.questions = questions
         self.answers = answers
         self.vocab_size = vocab_size
+        
 
     def transform_data(self):
         try:
             # Encoder Input Data
-            tokenized_questions = self.tokenizer.texts_to_sequences(self.questions)
-            maxlen_questions = max(len(x) for x in tokenized_questions)
-            encoder_input_data = self.preprocess_data(tokenized_questions, maxlen_questions)
+            tokenized_questions = self.tokenizer.texts_to_sequences(self.questions )
+            maxlen_questions = max( [len(x) for x in tokenized_questions ] )
+            padded_questions = preprocessing.sequence.pad_sequences( tokenized_questions, maxlen = maxlen_questions, padding = 'post')
+            encoder_input_data = np.array(padded_questions)
             logging.info(encoder_input_data.shape, maxlen_questions)
 
             # Decoder Input Data
             tokenized_answers = self.tokenizer.texts_to_sequences(self.answers)
-            maxlen_answers = max(len(x) for x in tokenized_answers)
-            decoder_input_data = self.preprocess_data(tokenized_answers, maxlen_answers)
+            maxlen_answers = max([len(x) for x in tokenized_answers])
+            padded_answers = preprocessing.sequence.pad_sequences(tokenized_answers, maxlen=maxlen_answers,padding='post')
+            decoder_input_data = np.array(padded_answers)
             logging.info(decoder_input_data.shape, maxlen_answers)
+
 
             # Decoder Output Data
             for i in range(len(tokenized_answers)):
                 tokenized_answers[i] = tokenized_answers[i][1:]
-            padded_answers = self.preprocess_data(tokenized_answers, maxlen_answers)
+            padded_answers = preprocessing.sequence.pad_sequences(tokenized_answers, maxlen=maxlen_answers, padding='post')
             onehot_answers = utils.to_categorical(padded_answers, self.vocab_size)
             decoder_output_data = np.array(onehot_answers)
             logging.info(decoder_output_data.shape)
@@ -38,12 +42,3 @@ class DataTransformer:
         except Exception as e:
             logging.error("Error occurred in data transformation part: {}".format(e))
             raise CustomException(e, sys)
-
-    @staticmethod
-    def preprocess_data(tokenizer, data, maxlen):
-        tokenized_data = tokenizer.texts_to_sequences(data)
-        padded_data = preprocessing.sequence.pad_sequences(tokenized_data, maxlen=maxlen, padding='post')
-        return np.array(padded_data)
-        
-
-
