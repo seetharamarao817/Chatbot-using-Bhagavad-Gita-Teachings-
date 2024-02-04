@@ -1,5 +1,7 @@
 pandas 
 numpy
-dvc 
+tensorflow
+dvc
+ipykerneldvc 
 
 -e .

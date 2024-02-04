@@ -1,0 +1,20 @@
+[2024-02-04 18:53:58,984] 96 werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+[2024-02-04 18:53:58,984] 96 werkzeug - INFO - [33mPress CTRL+C to quit[0m
+[2024-02-04 18:54:08,551] 96 werkzeug - INFO - 127.0.0.1 - - [04/Feb/2024 18:54:08] "GET / HTTP/1.1" 200 -
+[2024-02-04 18:54:08,697] 96 werkzeug - INFO - 127.0.0.1 - - [04/Feb/2024 18:54:08] "GET /static/style.css HTTP/1.1" 200 -
+[2024-02-04 18:54:09,220] 96 werkzeug - INFO - 127.0.0.1 - - [04/Feb/2024 18:54:09] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2024-02-04 18:54:18,172] 828 app - ERROR - Exception on /get_response [GET]
+Traceback (most recent call last):
+  File "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/env/lib/python3.8/site-packages/flask/app.py", line 1463, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/env/lib/python3.8/site-packages/flask/app.py", line 872, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/env/lib/python3.8/site-packages/flask/app.py", line 870, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/env/lib/python3.8/site-packages/flask/app.py", line 855, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/app.py", line 13, in get_response
+    response = prediction_pipeline.generateresponse(modelpath, tokenizerpath, user_message)
+NameError: name 'prediction_pipeline' is not defined
+[2024-02-04 18:54:18,173] 96 werkzeug - INFO - 127.0.0.1 - - [04/Feb/2024 18:54:18] "[35m[1mGET /get_response?user_message=Hi HTTP/1.1[0m" 500 -

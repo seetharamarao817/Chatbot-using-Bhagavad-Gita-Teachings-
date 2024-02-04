@@ -1,10 +1,11 @@
 import json
-from keras.preprocessing.text import tokenizer_from_json
+import tensorflow as tf
+#from tf.keras.preprocessing.text import tokenizer_from_json
 
-from tensorflow.keras.models import load_model
+#from tensorfl.keras.models import load_model
 
 def loading_model(filepath):
-    model = load_model(filepath)
+    model = tf.keras.models.load_model(filepath)
     return model 
 
 def load_tokenizer_from_json(file_path):
@@ -20,7 +21,7 @@ def load_tokenizer_from_json(file_path):
     with open(file_path, 'r') as json_file:
         json_string = json_file.read()
 
-    tokenizer = tokenizer_from_json(json_string)
+    tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(json_string)
     return tokenizer
 
 def save_tokenizer_to_json(tokenizer, file_path, **kwargs):

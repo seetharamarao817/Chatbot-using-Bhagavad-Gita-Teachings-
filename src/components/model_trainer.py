@@ -1,8 +1,8 @@
 from src.logging.logger import logging
 from src.exceptions.exception import CustomException
 import sys
-from tensorflow.keras.optimizers import Adam
-
+import tensorflow as tf
+#from tf.keras.optimizers.Adam import Adam
 class ChatbotTrainer:
     def __init__(self):
         pass
@@ -10,7 +10,7 @@ class ChatbotTrainer:
     def train_model(self, model, encoder_input_data, decoder_input_data, decoder_output_data, batch_size, epochs, validation_split):
         try:
             logging.info("Model training started")
-            model.compile(optimizer=Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
+            model.compile(optimizer=tf.keras.optimizers.Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
             model.fit([encoder_input_data, decoder_input_data], decoder_output_data,
                       batch_size=batch_size, epochs=epochs, validation_split=validation_split)
 
