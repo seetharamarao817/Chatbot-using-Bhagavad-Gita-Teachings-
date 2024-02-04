@@ -8,7 +8,7 @@ from src.components.build_model import model
 
 from src.components.model_trainer import ChatbotTrainer
 
-from src.utils.utils import save_tokenizer_to_json
+from src.utils.utils import save_tokenizer_to_json,load_tokenizer_from_json,loading_model
 import os
 import sys
 from src.logging.logger import logging
@@ -19,17 +19,21 @@ from keras.preprocessing.text import tokenizer_from_json
 
 
 class TrainingPipeline:
+    def __init__(self) -> None:
+        pass
+
     def start_data_ingestion(self):
         try:
-            data_ingestion=DataIngestor()
-            questions,answers= data_ingestion.data_ingestion()
+            ingestion=DataIngestor()
+            questions,answers= ingestion.data_ingestion()
+
             return questions,answers
         except Exception as e:
             raise CustomException(e,sys)
         
     def start_data_preprocessing(self, questions, answers):
         try:
-            tokenizer_path = 'artifacts/tokenizer.json'
+            tokenizer_path = '/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/tokenizer.json'
 
             if os.path.exists(tokenizer_path):
                 # Load existing tokenizer
@@ -57,13 +61,8 @@ class TrainingPipeline:
             return encoder_input, decoder_input, decoder_output, max_len_q, max_len_a
         except Exception as e:
             raise CustomException(e,sys)
-        
-    def model_building(self, vocab_size, embedding_dim, hidden_units, maxlen_questions, maxlen_answers):
-        if os.path.exists('artifacts/chatbot_model.pkl'):
-            # Load existing model
-            chatbot_model = load_model('artifacts/chatbot_model.pkl')
-        else:
-            chatbot_model = model(vocab_size, embedding_dim, hidden_units, maxlen_questions, maxlen_answers)
+    def model_building(self,vocab_size, embedding_dim, hidden_units, maxlen_questions, maxlen_answers):
+        chatbot_model = model(vocab_size, embedding_dim, hidden_units, maxlen_questions, maxlen_answers)
         return chatbot_model
     
     def model_training(self, model, encoder_input_data, decoder_input_data, decoder_output_data, batch_size, epochs, validation_split):
@@ -76,6 +75,7 @@ class TrainingPipeline:
        
     def start_trainig(self,batch_size=64,epochs=50,validation_split=0.18,embedding_dim=256,hidden_units=512):
         try:
+            
             ques,ans = self.start_data_ingestion()
 
             token,vocab_size = self.start_data_preprocessing(ques,ans)
@@ -87,5 +87,10 @@ class TrainingPipeline:
             
         except Exception as e:
             raise CustomException(e,sys)
+        
+
+if __name__ == "__main__":
+    pipeline = TrainingPipeline()
+    pipeline.start_trainig()
         
 

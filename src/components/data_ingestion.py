@@ -1,4 +1,5 @@
 import os
+import sys
 import yaml
 import json
 from src.logging.logger import logging
@@ -17,10 +18,10 @@ class DataIngestor:
             else:
                 self.add_data_to_lists(f"explain chapter number : {dictionary['chapter_number']} {dictionary['translation']} or {dictionary['meaning']['en']}",
                                        ' start ' + dictionary['summary']['en'] + ' end ')
-            logging.info("Data added to the dataframe successfully.")
+    
         except Exception as e:
             logging.error("Error occurred while adding data to the dataframe.")
-            raise CustomException(e)
+            raise CustomException(e,sys)
 
     def read_yaml(self, file_path):
         try:
@@ -29,7 +30,7 @@ class DataIngestor:
             return docs['conversations']
         except Exception as e:
             logging.error(f"Error reading YAML file: {file_path}")
-            raise CustomException(e)
+            raise CustomException(e,sys)
 
     def read_json(self, file_path):
         try:
@@ -38,7 +39,7 @@ class DataIngestor:
             return data_list
         except Exception as e:
             logging.error(f"Error reading JSON file: {file_path}")
-            raise CustomException(e)
+            raise CustomException(e,sys)
 
     def process_conversations(self, conversations):
         processed_questions = []
@@ -61,16 +62,17 @@ class DataIngestor:
         self.answers.append(answer)
 
     def data_ingestion(self):
+        logging.info("data ingestion started")
         try:
             ls = []
-            for dirname, _, filenames in os.walk('/kaggle/input'):
-                if dirname == '/kaggle/input/bhagavad-gita-api-database/chapter':
+            for dirname, _, filenames in os.walk('/data'):
+                if dirname == '/data/chapters':
                     for filename in filenames:
                         ls.append(os.path.join(dirname, filename))
 
             files_list = [
-                "/kaggle/input/chatterbotenglish/ai.yml",
-                "/kaggle/input/chatterbotenglish/greetings.yml"
+                "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/data/general_conversations/ai.yml",
+                "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/data/general_conversations/greetings.yml"
             ]
 
             for filepath in files_list:
@@ -80,11 +82,11 @@ class DataIngestor:
                 self.answers.extend(processed_answers)
 
             file_paths = [
-                "/kaggle/input/gita-chatbot/Ethical_scenarios",
-                "/kaggle/input/gita-chatbot/Leadership_development",
-                "/kaggle/input/gita-chatbot/greetings.txt"
+                "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/data/Ethical_scenarios",
+                "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/data/Leadership_development",
+                "/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/data/greetings.txt"
             ]
-
+            logging.info("Data added to the dataframe successfully.")
             for file_path in file_paths:
                 data_list = self.read_json(file_path)
                 for dictionary in data_list:
@@ -98,4 +100,4 @@ class DataIngestor:
             return self.questions,self.answers
         
         except Exception as ce:
-            raise CustomException(ce)
+            raise CustomException(ce,sys)

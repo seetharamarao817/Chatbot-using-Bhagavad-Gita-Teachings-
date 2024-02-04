@@ -12,13 +12,8 @@ stages:
 
     outs:
       - artifacts/tokenizer.json
-      - artifacts/model.pkl
+      - artifacts/chatbot_model.pkl
 
-  prediction:
-    cmd: python pipelines/prediction_pipeline.py
-    deps:
-      - src/pipelines/prediction_pipeline.py
-      - src/components/model_prediction.py
-      - src/utils/utils.py
-      # Add other dependencies as needed
+  
+      
     

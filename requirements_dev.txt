@@ -3,5 +3,5 @@ numpy
 tensorflow
 dvc
 ipykerneldvc 
-
+apache-airflow==2.8.1
 -e .

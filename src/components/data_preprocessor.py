@@ -1,8 +1,7 @@
 import sys
 import tensorflow
-from tensorflow.keras import preprocessing
+#from tensorflow.keras import preprocessing
 import numpy as np
-import re
 from src.exceptions.exception import CustomException
 from src.logging.logger import logging
 
@@ -12,9 +11,9 @@ class DataPreprocessor:
         pass
        
     try:
-        logging.info("creating tokenizer")
+        logging.info("creating tokenizer in data preprocessing")
         def create_tokenizer(self,questions,answers):
-            tokenizer = preprocessing.text.Tokenizer()
+            tokenizer = tensorflow.keras.preprocessing.text.Tokenizer()
             tokenizer.fit_on_texts(questions +answers)
             vocab_size = len(tokenizer.word_index) + 1
             print(f'VOCAB SIZE: {vocab_size}')
