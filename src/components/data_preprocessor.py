@@ -18,6 +18,7 @@ class DataPreprocessor:
             vocab_size = len(tokenizer.word_index) + 1
             print(f'VOCAB SIZE: {vocab_size}')
             return tokenizer, vocab_size
+        
     except Exception as e:
         logging.error("Error occured in data preprocessing part")
         raise CustomException(e,sys)
