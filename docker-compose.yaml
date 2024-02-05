@@ -1,0 +1,10 @@
+version: "3"
+services:
+  airflow:
+    build:
+      context: ./
+      dockerfile: Dockerfile.airflow
+    image: airflowimage
+    container_name: chatbot_container
+    ports:
+      - "8080:8080"

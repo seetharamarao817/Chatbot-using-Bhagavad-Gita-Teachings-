@@ -1,7 +1,9 @@
-pandas 
+pandas
 numpy
-tensorflow
+tensorflow>=2.0.0,<3.0.0  
 dvc
-ipykerneldvc 
+ipykernel
 apache-airflow==2.8.1
+sqlalchemy==1.4.0
+
 -e .

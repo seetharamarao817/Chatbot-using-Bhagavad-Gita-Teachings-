@@ -15,7 +15,7 @@ class ChatbotTrainer:
                       batch_size=batch_size, epochs=epochs, validation_split=validation_split)
 
             # Save the trained model
-            model.save('artifacts/chatbot_model.pkl')
+            model.save('/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/chatbot_model.pkl')
             logging.info("Model training completed successfully.")
 
         except Exception as e:

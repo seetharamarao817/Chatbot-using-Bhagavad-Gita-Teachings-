@@ -65,8 +65,8 @@ class DataIngestor:
         logging.info("data ingestion started")
         try:
             ls = []
-            for dirname, _, filenames in os.walk('/data'):
-                if dirname == '/data/chapters':
+            for dirname, _, filenames in os.walk('/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/data/chapters'):
+                if dirname == '/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/data/chapters':
                     for filename in filenames:
                         ls.append(os.path.join(dirname, filename))
 

@@ -1,0 +1,43 @@
+schema: '2.0'
+stages:
+  training:
+    cmd: python pipelines/training_pipeline.py
+    deps:
+    - path: pipelines/training_pipeline.py
+      hash: md5
+      md5: 68baceae0c8bed5f4ee01926aca3d637
+      size: 3900
+    - path: src/components/build_model.py
+      hash: md5
+      md5: 872941c29cc04ac76921c1aee5ccb7c6
+      size: 1566
+    - path: src/components/data_ingestion.py
+      hash: md5
+      md5: de3e495a022dd1afb5c39ed09262cb1f
+      size: 4196
+    - path: src/components/data_preprocessor.py
+      hash: md5
+      md5: dac02c4810ead88ea4fae0ecbe0da8f3
+      size: 791
+    - path: src/components/data_transformation.py
+      hash: md5
+      md5: f3eaec17ed3a6ef7506e94ace97f1a34
+      size: 2085
+    - path: src/components/model_trainer.py
+      hash: md5
+      md5: e8418ad5aa4d47648d376d9ccde4d375
+      size: 1097
+    - path: src/utils/utils.py
+      hash: md5
+      md5: dd76143ebc5330a583512d0474e96188
+      size: 871
+    outs:
+    - path: artifacts/chatbot_model.pkl
+      hash: md5
+      md5: 4ffe6129295fefb66a82fec75be8ad88.dir
+      size: 170235840
+      nfiles: 5
+    - path: artifacts/tokenizer.json
+      hash: md5
+      md5: a5288eb000a33f50d82752e8d09baff8
+      size: 178535

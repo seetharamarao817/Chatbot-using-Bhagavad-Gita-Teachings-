@@ -2,3 +2,4 @@ env
 /data
 logs
 __pycache__
+artifacts/chatbot_model.pkl/

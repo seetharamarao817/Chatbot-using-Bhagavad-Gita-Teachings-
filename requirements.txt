@@ -1,0 +1,11 @@
+pandas
+numpy
+tensorflow>=2.0.0,<3.0.0 
+dvc
+ipykernel
+apache-airflow==2.8.1
+sqlalchemy==1.4.0
+
+Flask==2.0.1
+
+-e.

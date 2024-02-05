@@ -35,3 +35,8 @@ class PredictionPipeline:
         except Exception as e:
             logging.error("Error occurred in interactive chat.")
             raise CustomException(e, sys)
+        
+
+if __name__ =="__main__":
+    predict = PredictionPipeline()
+    predict.interactive_chat("/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/chatbot_model.pkl","/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/tokenizer.json")
