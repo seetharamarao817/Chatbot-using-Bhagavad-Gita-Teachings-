@@ -1,34 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Bhagavad Gita Chatbot</title>
+    <title>Ethical Decision Making and Leadership Development using Bhagavad Gita's Teachings</title>
+    <style>
+        body {
+            background-image: url('https://www.bhagavad-gita.us/wp-content/uploads/2012/10/gita-02.jpg');
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #0066cc;
+        }
+        p {
+            margin: 10px 0;
+        }
+        input[type="text"] {
+            width: calc(100% - 80px);
+            padding: 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #chat-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bhagavad Gita Chatbot</h1>
-        <div id="chat-container">
-            <div id="chat-box"></div>
-            <input type="text" id="user-input" placeholder="Type your message...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+        <h1>Ethical Decision Making and Leadership Development using Bhagavad Gita's Teachings</h1>
+        <p>Welcome to our chatbot interface! Feel free to ask any questions or seek guidance related to ethical decision making and leadership development based on Bhagavad Gita's teachings.</p>
+        <div id="chat-container"></div>
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button onclick="sendMessage()">Send</button>
     </div>
 
     <script>
         function sendMessage() {
             var userMessage = document.getElementById("user-input").value;
-            document.getElementById("chat-box").innerHTML += '<div class="user-message">You: ' + userMessage + '</div>';
-            document.getElementById("user-input").value = '';
+            document.getElementById("user-input").value = "";
 
-            // Call Flask route to get chatbot response and update the chat-box
-            fetch('/get_response?user_message=' + encodeURIComponent(userMessage))
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById("chat-box").innerHTML += '<div class="bot-message">Chatbot: ' + data.response + '</div>';
-                });
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/get_response", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    document.getElementById("chat-container").innerHTML += "<p><strong>You:</strong> " + userMessage + "</p>";
+                    document.getElementById("chat-container").innerHTML += "<p><strong>Chatbot:</strong> " + response.response + "</p>";
+                    document.getElementById("chat-container").scrollTop = document.getElementById("chat-container").scrollHeight;
+                }
+            };
+            xhr.send("user_message=" + userMessage);
         }
     </script>
 </body>

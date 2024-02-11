@@ -12,7 +12,7 @@ class PredictionPipeline:
         except Exception as e:
             raise CustomException(e,sys)
             
-    def generateresponse(self,modelpath,tokenizerpath,input_text,maxlen_questions=38,maxlen_answers=168):
+    def generateresponse(self,input_text,modelpath,tokenizerpath,maxlen_questions=38,maxlen_answers=168):
         model = self.loaded_model(modelpath)
         Inference = prediction(model,tokenizerpath)
         response = Inference.generate_response(input_text,maxlen_questions,maxlen_answers)
@@ -29,7 +29,7 @@ class PredictionPipeline:
                     logging.info("Exiting interactive chatbot.")
                     break
 
-                response = self.generateresponse(modelpath,tokenizerpath,user_input)
+                response = self.generateresponse(input_text=user_input,modelpath=modelpath,tokenizerpath=tokenizerpath)
                 print("Chatbot:", response)
 
         except Exception as e:
@@ -39,4 +39,4 @@ class PredictionPipeline:
 
 if __name__ =="__main__":
     predict = PredictionPipeline()
-    predict.interactive_chat("/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/chatbot_model.pkl","/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/tokenizer.json")
+    predict.interactive_chat(modelpath="/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/chatbot_model.pkl",tokenizerpath="/workspaces/Chatbot-using-Bhagavad-Gita-Teachings-/artifacts/tokenizer.json")
