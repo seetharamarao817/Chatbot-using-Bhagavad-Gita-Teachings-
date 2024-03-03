@@ -71,7 +71,7 @@ To use the chatbot, simply type a question or statement in the text box provided
 
 ## Screenshot of the Web Interface
 
-![Screenshot](../Chatbot-using-Bhagavad-Gita-Teachings-/images/UI.png)
+![Screenshot](https://github.com/seetharamarao817/Chatbot-using-Bhagavad-Gita-Teachings-/blob/main/images/UI.png)
 
 ## Contributions
 
